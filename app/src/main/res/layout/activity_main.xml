@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="8dp"
+              android:orientation="vertical">
+
+    <Button android:id="@+id/downloadLargeImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/download_large_image"/>
+
+    <Space android:layout_width="wrap_content" android:layout_height="8dp"/>
+
+    <Button android:id="@+id/downloadSmallImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/download_small_image"/>
+
+    <Space android:layout_width="wrap_content" android:layout_height="8dp"/>
+
+    <Button android:id="@+id/viewDownloads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_downloads"/>
+
+    <Space android:layout_width="wrap_content" android:layout_height="8dp"/>
+
+    <TextView android:id="@+id/monitor"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#dddddd"
+              android:gravity="bottom"/>
+
+</LinearLayout>
