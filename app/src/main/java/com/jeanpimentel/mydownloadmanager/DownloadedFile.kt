@@ -6,6 +6,7 @@ import android.os.Parcelable
 
 data class DownloadedFile(
         val id: Long,
+        val title: String,
         val status: Int,
         val reason: Int,
         val bytesTotal: Int = 0,
@@ -62,6 +63,7 @@ data class DownloadedFile(
     override fun toString(): String {
         return "DownloadedFile(" + "\n" +
                 "\tid=$id, " + "\n" +
+                "\ttitle=$title, " + "\n" +
                 "\tstatus=$status, " + "\n" +
                 "\tstatusText=$statusText, " + "\n" +
                 "\treason=$reason, " + "\n" +
@@ -74,6 +76,7 @@ data class DownloadedFile(
 
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
+            parcel.readString(),
             parcel.readInt(),
             parcel.readInt(),
             parcel.readInt(),
@@ -82,6 +85,7 @@ data class DownloadedFile(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
+        parcel.writeString(title)
         parcel.writeInt(status)
         parcel.writeInt(reason)
         parcel.writeInt(bytesTotal)
@@ -105,7 +109,7 @@ data class DownloadedFile(
         private val STATUS_CANCELLED = -1
 
         fun cancelled(id: Long): DownloadedFile {
-            return DownloadedFile(id, STATUS_CANCELLED, 0)
+            return DownloadedFile(id, "", STATUS_CANCELLED, 0)
         }
     }
 }

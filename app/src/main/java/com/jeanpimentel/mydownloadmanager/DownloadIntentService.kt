@@ -20,6 +20,8 @@ class DownloadIntentService : IntentService("DownloadIntentService") {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri = downloadManager.getUriForDownloadedFile(downloadedFile.id)
 
+        NotificationHelper.showProcessing(this, downloadedFile)
+
         val inputStream = contentResolver.openInputStream(uri)
 
         val outputFile = File(filesDir, downloadedFile.id.toString())
@@ -36,6 +38,8 @@ class DownloadIntentService : IntentService("DownloadIntentService") {
         inputStream.close()
 
         downloadManager.remove(downloadedFile.id)
+
+        NotificationHelper.showFinished(this, downloadedFile)
     }
 
     companion object {
