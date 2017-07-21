@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
 
-//        request.setVisibleInDownloadsUi(false)
+        request.setVisibleInDownloadsUi(false)
 
         val id = downloadManager?.enqueue(request) ?: -1L
         if (id == -1L) {
