@@ -1,6 +1,8 @@
 package com.jeanpimentel.mydownloadmanager
 
 import android.app.DownloadManager
+import android.os.Parcel
+import android.os.Parcelable
 
 data class DownloadedFile(
         val id: Long,
@@ -8,7 +10,7 @@ data class DownloadedFile(
         val reason: Int,
         val bytesTotal: Int = 0,
         val bytesDownloaded: Int = 0,
-        val lastModifiedAt: Int = 0) {
+        val lastModifiedAt: Int = 0) : Parcelable {
 
     val statusText: String
         get() {
@@ -18,7 +20,8 @@ data class DownloadedFile(
                 DownloadManager.STATUS_PENDING -> return "STATUS_PENDING"
                 DownloadManager.STATUS_RUNNING -> return "STATUS_RUNNING"
                 DownloadManager.STATUS_SUCCESSFUL -> return "STATUS_SUCCESSFUL"
-                else -> return "STATUS_CANCELLED"
+                STATUS_CANCELLED -> return "STATUS_CANCELLED"
+                else -> return ""
             }
         }
 
@@ -69,7 +72,35 @@ data class DownloadedFile(
                 ")"
     }
 
-    companion object {
+    constructor(parcel: Parcel) : this(
+            parcel.readLong(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt())
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeInt(status)
+        parcel.writeInt(reason)
+        parcel.writeInt(bytesTotal)
+        parcel.writeInt(bytesDownloaded)
+        parcel.writeInt(lastModifiedAt)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DownloadedFile> {
+        override fun createFromParcel(parcel: Parcel): DownloadedFile {
+            return DownloadedFile(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DownloadedFile?> {
+            return arrayOfNulls(size)
+        }
 
         private val STATUS_CANCELLED = -1
 

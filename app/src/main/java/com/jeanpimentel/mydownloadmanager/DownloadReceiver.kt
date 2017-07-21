@@ -20,5 +20,9 @@ class DownloadReceiver : BroadcastReceiver() {
         Toast.makeText(context, "$id: ${file.statusText}", Toast.LENGTH_SHORT).show()
 
         DownloadManagerHelper.removeDownload(context, id)
+
+        if (file.isSuccessful()) {
+            context.startService(DownloadIntentService.create(context, file))
+        }
     }
 }
